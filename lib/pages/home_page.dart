@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:sneakcommerce/components/bottom_navbar.dart';
 import 'package:sneakcommerce/components/searchbar.dart';
 import 'package:sneakcommerce/pages/cart_page.dart';
@@ -62,9 +61,11 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
       ),
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavbar(
-        currentIndex: _selectedIndex,
-        onTap: (index) => navigateBottomBar(index),
+      bottomNavigationBar: SafeArea(
+        child: BottomNavbar(
+          currentIndex: _selectedIndex,
+          onTap: (index) => navigateBottomBar(index),
+        ),
       ),
     );
   }
