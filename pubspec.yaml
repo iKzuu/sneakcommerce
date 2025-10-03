@@ -39,6 +39,7 @@ dependencies:
   iconsax: ^0.0.8
   provider: 
   flutter_slidable: ^4.0.3
+  icons_plus: ^5.0.0
 
 dev_dependencies:
   flutter_test:

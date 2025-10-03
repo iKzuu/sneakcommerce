@@ -15,6 +15,10 @@ class ShopPage extends StatefulWidget {
 
 class _ShopPageState extends State<ShopPage> {
 
+  void addShoeToWishlist(Shoe shoe) {
+    Provider.of<Cart>(context, listen: false).addItemToWishlist(shoe);
+  }
+
   void addShoeToCart(Shoe shoe) {
     Provider.of<Cart>(context, listen: false).addItemToCart(shoe);
 
@@ -23,78 +27,78 @@ class _ShopPageState extends State<ShopPage> {
       builder: (context) => AlertDialog(
         backgroundColor: Color(0xFF435150),
         title: Text(
-          "Added to 1 item to cart",
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          "Added 1 item to cart",
+          style: TextStyle(color: Colors.white),
         ),
-        content: Text(
-          "Check your cart",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      )
+        content: Text("Check your cart", style: TextStyle(color: Colors.white)),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Consumer<Cart>(
-        builder: (context, value, child) => Column(
-        children: [
-          BannerSlider(),
-      
-          SizedBox(height: 20,),
-      
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+
+    return Consumer<Cart>(
+      builder: (context, value, child) => CustomScrollView(
+        slivers: [
+
+          SliverToBoxAdapter(
+            child: Column(
               children: [
-                Category(index: 0, name: "All",),
-                Category(index: 1, name: "Nike",),
-                Category(index: 2, name: "Adidas",),
-                Category(index: 3, name: "NB",),
+
+                BannerSlider(),
+
+                SizedBox(height: 20),
+
+                Category(),
+
+                SizedBox(height: 20),
               ],
             ),
           ),
-      
-          SizedBox(height: 20),
-      
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Featured",
-                style: TextStyle(
-                  color: Color(0xFF242424),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16
+
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Featured",
+                  style: TextStyle(
+                    color: Color(0xFF242424),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
           ),
-      
-          Container(
-            height: 280,
-            child: ListView.builder(
-              itemCount: 5,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
+
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate((context, index) {
                 Shoe shoe = value.getShoeList()[index];
                 return ShoeTile(
                   shoe: shoe,
+                  shoeId: shoe.id,
                   onTap: () => addShoeToCart(shoe),
+                  onPressed: () => addShoeToWishlist(shoe),
                 );
               },
+                childCount: value.shoeShop.length
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.74,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
             ),
           ),
+
         ],
       ),
-      )
     );
   }
 }

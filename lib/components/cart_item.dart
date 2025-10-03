@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/models/cart.dart';
 import 'package:sneakcommerce/models/shoe.dart';
@@ -27,54 +26,73 @@ class _CartItemState extends State<CartItem> {
         endActionPane: ActionPane(
           motion: StretchMotion(),
           children: [
-            SlidableAction(
-              onPressed: (BuildContext context) {
-                removeItemFromCart();
-              },
-              icon: Iconsax.trash,
+            CustomSlidableAction(
               foregroundColor: Colors.white,
               backgroundColor: Colors.redAccent,
               borderRadius: BorderRadius.circular(12),
+              onPressed: (BuildContext context) {
+                removeItemFromCart();
+              },
+              child: Icon(
+                Icons.delete_outline_rounded,
+                size: 32,
+              ),
             ),
           ],
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
+            color: Color(0xFFAC9A8C).withValues(alpha: .6),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Positioned(
-                    child: Image.network(
-                      widget.shoe.imagePath,
-                      width: 140,
-                      height: 140,
-                    ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 110,
+                  height: 110,
+                  child: Image.network(
+                    widget.shoe.imagePath,
+                    fit: BoxFit.cover,
                   ),
-                ],
+                ),
               ),
       
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.shoe.name,
-                    style: TextStyle(
-                      color: Color(0xFF242424),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.shoe.name,
+                      style: TextStyle(
+                        color: Color(0xFF242424),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-      
-                  Text(widget.shoe.brand),
-      
-                  Text(widget.shoe.price),
-                ],
+
+                    SizedBox(height: 12,),
+                      
+                    Text(
+                      widget.shoe.brand,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8)
+                      ),
+                    ),
+                      
+                    Text(
+                      widget.shoe.price,
+                      style: TextStyle(
+                        color: Color(0xFF464646),
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

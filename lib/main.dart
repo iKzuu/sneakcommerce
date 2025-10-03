@@ -18,7 +18,6 @@ class SneakCommerce extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: IntroPage(),
         theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xFFC9BCAF),
           fontFamily: 'Poppins',
         ),
       ),
