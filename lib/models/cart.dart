@@ -131,11 +131,12 @@ class Cart extends ChangeNotifier {
   // list of items user cart
   List<Shoe> userCart = [];
 
+  // list of items user wishlist
   List<Shoe> userWishlist = [];
 
+  // search filter
   String _searchQuery = "";
 
-  // search filter
   List<Shoe> get shoes {
     final query = _searchQuery.toLowerCase();
 
@@ -151,6 +152,39 @@ class Cart extends ChangeNotifier {
   void setSearchQuery(String searchQuery) {
     _searchQuery = searchQuery;
     notifyListeners();
+  }
+
+  // filtering brand of shoe
+  final List<String> categories = ["All", "Nike", "Adidas", "NB", "Puma"];
+  int _selectedCategoryIndex = 0;
+  int get selectedCategoryIndex => _selectedCategoryIndex;
+
+  final Map<String, String> _brandAliases = {
+    "Nike": "Nike",
+    "Adidas": "Adidas",
+    "NB": "New Balance",
+    "Puma": "Puma"
+  };
+
+  void setCategoryIndex(int index) {
+    _selectedCategoryIndex = index;
+    notifyListeners();
+  }
+
+  List<Shoe> get filteredShoes {
+    final selectedCategoryAlias = categories[_selectedCategoryIndex];
+
+    if (selectedCategoryAlias == "All") {
+      return shoeShop;
+    }
+
+    final actualBrandName = _brandAliases[selectedCategoryAlias] ?? selectedCategoryAlias;
+
+    return shoeShop
+        .where(
+          (shoe) => shoe.brand.toLowerCase() == actualBrandName.toLowerCase(),
+        )
+        .toList();
   }
 
   // get list of shoe
@@ -191,7 +225,7 @@ class Cart extends ChangeNotifier {
     userWishlist.remove(shoe);
     notifyListeners();
   }
-  
+
   void toggleFavorite(int shoeId) {
     final index = shoeShop.indexWhere((shoe) => shoe.id == shoeId);
     if (index != -1) {
