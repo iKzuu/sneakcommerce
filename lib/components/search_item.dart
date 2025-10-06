@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakcommerce/components/item_list.dart';
 import 'package:sneakcommerce/models/cart.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
@@ -36,8 +37,10 @@ class _SearchItemState extends State<SearchItem> {
           padding: const EdgeInsets.all(12.0),
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: value.shoes.length,
+            itemCount: value.getSearchShoes().length,
             itemBuilder: (context, index) {
+              Shoe searchShoe = value.getSearchShoes()[index];
+
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: Container(
@@ -47,56 +50,12 @@ class _SearchItemState extends State<SearchItem> {
                   ),
                   child: Stack(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Image.network(
-                                value.shoes[index].imagePath,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  value.shoes[index].name,
-                                  style: TextStyle(
-                                    color: Color(0xFF242424),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                                ),
-
-                                SizedBox(height: 12),
-
-                                Text(
-                                  value.shoes[index].brand,
-                                  style: TextStyle(
-                                    color: Colors.white.withValues(alpha: 0.8),
-                                  ),
-                                ),
-
-                                Text(
-                                  value.shoes[index].price,
-                                  style: TextStyle(
-                                    color: Color(0xFF464646),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                      
+                      // shoe list
+                      ItemList(
+                        shoe: searchShoe,
+                        imageWidth: 80,
+                        imageHeight: 80,
                       ),
 
                       Positioned(
@@ -105,21 +64,21 @@ class _SearchItemState extends State<SearchItem> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                value.shoes[index].isFavorite
+                                searchShoe.isFavorite
                                     ? Provider.of<Cart>(
                                         context,
                                         listen: false,
                                       ).removeItemFromWishlist(
-                                        value.shoes[index],
+                                        searchShoe,
                                       )
                                     : Provider.of<Cart>(
                                         context,
                                         listen: false,
-                                      ).addItemToWishlist(value.shoes[index]);
-                                value.toggleFavorite(value.shoes[index].id);
+                                      ).addItemToWishlist(searchShoe);
+                                value.toggleFavorite(searchShoe.id);
                               },
 
-                              icon: value.shoes[index].isFavorite
+                              icon: searchShoe.isFavorite
                                   ? Icon(
                                       Icons.favorite_rounded,
                                       color: Color(0xFF435150),
@@ -131,7 +90,7 @@ class _SearchItemState extends State<SearchItem> {
                             ),
 
                             GestureDetector(
-                              onTap: () => addShoeToCart(value.shoes[index]),
+                              onTap: () => addShoeToCart(searchShoe),
                               child: Container(
                                 padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(

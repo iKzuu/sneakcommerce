@@ -137,16 +137,14 @@ class Cart extends ChangeNotifier {
   // search filter
   String _searchQuery = "";
 
-  List<Shoe> get shoes {
+  List<Shoe> getSearchShoes() {
     final query = _searchQuery.toLowerCase();
 
-    if (query.isEmpty) {
-      return [];
-    } else {
-      return shoeShop
-          .where((shoe) => shoe.name.toLowerCase().contains(query))
-          .toList();
-    }
+    return query.isEmpty
+        ? []
+        : shoeShop
+              .where((shoe) => shoe.name.toLowerCase().contains(query))
+              .toList();
   }
 
   void setSearchQuery(String searchQuery) {
@@ -163,7 +161,7 @@ class Cart extends ChangeNotifier {
     "Nike": "Nike",
     "Adidas": "Adidas",
     "NB": "New Balance",
-    "Puma": "Puma"
+    "Puma": "Puma",
   };
 
   void setCategoryIndex(int index) {
@@ -178,7 +176,8 @@ class Cart extends ChangeNotifier {
       return shoeShop;
     }
 
-    final actualBrandName = _brandAliases[selectedCategoryAlias] ?? selectedCategoryAlias;
+    final actualBrandName =
+        _brandAliases[selectedCategoryAlias] ?? selectedCategoryAlias;
 
     return shoeShop
         .where(
