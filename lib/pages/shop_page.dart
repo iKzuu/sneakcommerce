@@ -78,7 +78,7 @@ class _ShopPageState extends State<ShopPage> {
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
-                Shoe shoe = value.getShoeList()[index];
+                Shoe shoe = value.filteredShoes[index];
                 return ShoeTile(
                   shoe: shoe,
                   shoeId: shoe.id,
@@ -86,7 +86,7 @@ class _ShopPageState extends State<ShopPage> {
                   onPressed: () => addShoeToWishlist(shoe),
                 );
               },
-                childCount: value.shoeShop.length
+                childCount: value.filteredShoes.length
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
