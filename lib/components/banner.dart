@@ -8,7 +8,7 @@ class BannerSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 12),
+      padding: EdgeInsets.only(left: 12, right: 12, top: 12),
       child: Center(
         child: Stack(
           children: [

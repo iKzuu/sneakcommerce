@@ -90,7 +90,7 @@ class _ShopPageState extends State<ShopPage> {
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.74,
+                childAspectRatio: 0.68,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
               ),
