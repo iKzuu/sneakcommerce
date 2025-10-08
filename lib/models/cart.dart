@@ -152,7 +152,7 @@ class Cart extends ChangeNotifier {
     notifyListeners();
   }
 
-  // filtering brand of shoe
+  // filter shoe by brand 
   final List<String> categories = ["All", "Nike", "Adidas", "NB", "Puma"];
   int _selectedCategoryIndex = 0;
   int get selectedCategoryIndex => _selectedCategoryIndex;
