@@ -22,25 +22,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Widget> _pages = [
-    ShopPage(),
-    CartPage(),
-    WishlistPage(),
-  ];
+  final List<Widget> _pages = [ShopPage(), CartPage(), WishlistPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFC9BCAF),
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Color(0xFF435150),
         title: Text(
-                "SneakCommerce.",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+          "SneakCommerce.",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).push(createRoute()),
@@ -52,11 +46,14 @@ class _HomePageState extends State<HomePage> {
       ),
 
       body: _pages[_selectedIndex],
-      
-      bottomNavigationBar: SafeArea(
-        child: BottomNavbar(
-          currentIndex: _selectedIndex,
-          onTap: (index) => navigateBottomBar(index),
+
+      bottomNavigationBar: Container(
+        color: Colors.transparent,
+        child: SafeArea(
+          child: BottomNavbar(
+            currentIndex: _selectedIndex,
+            onTap: (index) => navigateBottomBar(index),
+          ),
         ),
       ),
     );

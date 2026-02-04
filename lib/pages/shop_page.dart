@@ -14,7 +14,6 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
-
   void addShoeToWishlist(Shoe shoe) {
     Provider.of<Cart>(context, listen: false).addItemToWishlist(shoe);
   }
@@ -37,15 +36,12 @@ class _ShopPageState extends State<ShopPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<Cart>(
       builder: (context, value, child) => CustomScrollView(
         slivers: [
-
           SliverToBoxAdapter(
             child: Column(
               children: [
-
                 BannerSlider(),
 
                 SizedBox(height: 20),
@@ -75,7 +71,7 @@ class _ShopPageState extends State<ShopPage> {
           ),
 
           SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 110.0),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
                 Shoe shoe = value.filteredShoes[index];
@@ -85,9 +81,7 @@ class _ShopPageState extends State<ShopPage> {
                   onTap: () => addShoeToCart(shoe),
                   onPressed: () => addShoeToWishlist(shoe),
                 );
-              },
-                childCount: value.filteredShoes.length
-              ),
+              }, childCount: value.filteredShoes.length),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.68,
@@ -96,7 +90,6 @@ class _ShopPageState extends State<ShopPage> {
               ),
             ),
           ),
-
         ],
       ),
     );

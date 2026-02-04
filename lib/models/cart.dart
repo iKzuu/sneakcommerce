@@ -50,7 +50,7 @@ class Cart extends ChangeNotifier {
       name: "Campus 00s",
       price: "Rp 1.700.000",
       imagePath:
-          "https://www.adidas.co.id/media/catalog/product/h/q/hq8707_2_footwear_photography_side20lateral20view_grey.jpg",
+          "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/ce738cbe5342421996feaf5001044964_9366/Sepatu_Campus_00s_Abu-abu_HQ8707_01_standard.jpg",
       brand: "Adidas",
     ),
     Shoe(
@@ -58,7 +58,7 @@ class Cart extends ChangeNotifier {
       name: "Stan Smith",
       price: "Rp 950.000",
       imagePath:
-          "https://www.adidas.co.id/media/catalog/product/i/g/ig1323_5_footwear_photography_side20medial20center20view_grey.jpg",
+          "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/69721f2e7c934d909168a80e00818569_9366/Sepatu_Stan_Smith_Putih_M20324_01_standard.jpg",
       brand: "Adidas",
     ),
     Shoe(
@@ -66,7 +66,7 @@ class Cart extends ChangeNotifier {
       name: "Samba OG",
       price: "Rp 2.200.000",
       imagePath:
-          "https://www.adidas.co.id/media/catalog/product/b/7/b75806_smc_ecom.jpg",
+          "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/d3cc045620ce498087346fa051694ed1_9366/Sepatu_SAMBA_OG_Putih_IH9553_01_00_standard.jpg",
       brand: "Adidas",
     ),
     Shoe(
@@ -74,15 +74,7 @@ class Cart extends ChangeNotifier {
       name: "Gazelle",
       price: "Rp 1.700.000",
       imagePath:
-          "https://www.adidas.co.id/media/catalog/product/b/b/bb5478_smc_ecom.jpg",
-      brand: "Adidas",
-    ),
-    Shoe(
-      id: 10,
-      name: "SC Powerphase",
-      price: "Rp 2.000.000",
-      imagePath:
-          "https://www.adidas.co.id/media/catalog/product/j/q/jq3936_5_footwear_photography_side20medial20center20view_grey.jpg",
+          "https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/698e41ae0196408eb16aa7fb008046ad_9366/Sepatu_Gazelle_Biru_BB5478_01_standard.jpg",
       brand: "Adidas",
     ),
 
