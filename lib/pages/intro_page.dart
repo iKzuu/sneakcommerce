@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneakcommerce/components/get_started_btn.dart';
 import 'package:sneakcommerce/pages/home_page.dart';
 
 class IntroPage extends StatelessWidget {
@@ -64,55 +65,7 @@ class IntroPage extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(left: 26),
-            child: InkWell(
-              child: GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                ),
-                child: Container(
-                  width: 140,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFC9BCAF),
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Get started",
-                        style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF435150),
-                        ),
-                      ),
-              
-                      SizedBox(width: 10),
-              
-                      Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF435150),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Image.asset(
-                            "assets/icons/arrow.png",
-                            width: 16,
-                            height: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            child: GetStartedButton(),
           ),
         ],
       ),
