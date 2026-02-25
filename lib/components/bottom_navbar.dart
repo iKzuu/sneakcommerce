@@ -35,37 +35,6 @@ class BottomNavbar extends StatelessWidget {
           ),
         ],
       ),
-
-      // margin: EdgeInsets.symmetric(horizontal: 60, vertical: 12),
-      // decoration: BoxDecoration(
-      //   color: Colors.white,
-      //   borderRadius: BorderRadius.circular(60),
-      // ),
-      // child: BottomNavigationBar(
-      //   backgroundColor: Colors.transparent,
-      //   iconSize: 32,
-      //   elevation: 0,
-      //   selectedItemColor: Color(0xFFC9BCAF),
-      //   unselectedItemColor: Color(0xFF242424),
-      //   showSelectedLabels: true,
-      //   showUnselectedLabels: false,
-      //   currentIndex: currentIndex,
-      //   onTap: (value) => onTap!(value),
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: ImageIcon(AssetImage('assets/icons/home.png')),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: ImageIcon(AssetImage('assets/icons/bag.png')),
-      //       label: 'Cart',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: ImageIcon(AssetImage('assets/icons/heart.png')),
-      //       label: 'Wishlist',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
