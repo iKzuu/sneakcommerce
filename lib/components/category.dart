@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 
 class Category extends StatelessWidget {
   Category({super.key});
@@ -9,7 +9,7 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Consumer<Controller>(
       builder: (context, value, child) {
         return SizedBox(
           height: 30,
@@ -21,7 +21,7 @@ class Category extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Provider.of<Cart>(context, listen: false).setCategoryIndex(index);
+                  Provider.of<Controller>(context, listen: false).setCategoryIndex(index);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),

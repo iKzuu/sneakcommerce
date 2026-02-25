@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/banner.dart';
 import 'package:sneakcommerce/components/shoe_tile.dart';
 import 'package:sneakcommerce/components/category.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
 class ShopPage extends StatefulWidget {
@@ -14,29 +14,9 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
-  void addShoeToWishlist(Shoe shoe) {
-    Provider.of<Cart>(context, listen: false).addItemToWishlist(shoe);
-  }
-
-  void addShoeToCart(Shoe shoe) {
-    Provider.of<Cart>(context, listen: false).addItemToCart(shoe);
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF435150),
-        title: Text(
-          "Added 1 item to cart",
-          style: TextStyle(color: Colors.white),
-        ),
-        content: Text("Check your cart", style: TextStyle(color: Colors.white)),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Consumer<Controller>(
       builder: (context, value, child) => CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -71,16 +51,11 @@ class _ShopPageState extends State<ShopPage> {
           ),
 
           SliverPadding(
-            padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 110.0),
+            padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 88.0),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate((context, index) {
                 Shoe shoe = value.filteredShoes[index];
-                return ShoeTile(
-                  shoe: shoe,
-                  shoeId: shoe.id,
-                  onTap: () => addShoeToCart(shoe),
-                  onPressed: () => addShoeToWishlist(shoe),
-                );
+                return ShoeTile(shoe: shoe, shoeId: shoe.id);
               }, childCount: value.filteredShoes.length),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

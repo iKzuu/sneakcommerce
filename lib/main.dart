@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/pages/intro_page.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class SneakCommerce extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Cart(),
+      create: (context) => Controller(),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroPage(),

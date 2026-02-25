@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 
 class Searchbar extends StatefulWidget {
   final TextEditingController controller;
@@ -35,7 +35,7 @@ class _SearchbarState extends State<Searchbar> {
             borderSide: BorderSide.none,
           ),
         ),
-        onChanged: (value) => Provider.of<Cart>(context, listen: false).setSearchQuery(value),
+        onChanged: (value) => Provider.of<Controller>(context, listen: false).setSearchQuery(value),
       ),
     );
   }

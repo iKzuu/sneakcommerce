@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/item_list.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
 class WishlistPage extends StatefulWidget {
@@ -15,12 +15,12 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   void removeItemFromWishlist(Shoe shoe) {
-    Provider.of<Cart>(context, listen: false).removeItemFromWishlist(shoe);
+    Provider.of<Controller>(context, listen: false).removeItemFromWishlist(shoe);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Consumer<Controller>(
       builder: (context, value, child) => Padding(
         padding: const EdgeInsets.all(26.0),
         child: Column(
@@ -61,10 +61,10 @@ class _WishlistPageState extends State<WishlistPage> {
 
             Expanded(
               child: ListView.builder(
-                itemCount: value.getUserWishlist().length,
+                itemCount: value.userWishlistItem.length,
                 itemBuilder: (context, index) {
                   // get individual shoe
-                  Shoe wishlistShoe = value.getUserWishlist()[index];
+                  Shoe wishlistShoe = value.userWishlistItem[index];
 
                   // return cart item
                   return Padding(
@@ -78,6 +78,7 @@ class _WishlistPageState extends State<WishlistPage> {
                             backgroundColor: Colors.redAccent,
                             borderRadius: BorderRadius.circular(12),
                             onPressed: (BuildContext context) {
+                              value.toggleFavorite(wishlistShoe.id);
                               removeItemFromWishlist(wishlistShoe);
                             },
                             child: Icon(Icons.delete_outline_rounded, size: 32),

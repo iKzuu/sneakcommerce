@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/item_list.dart';
-import 'package:sneakcommerce/models/cart.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
 class CartPage extends StatefulWidget {
@@ -15,12 +15,12 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   void removeItemFromCart(Shoe shoe) {
-    Provider.of<Cart>(context, listen: false).removeItemFromCart(shoe);
+    Provider.of<Controller>(context, listen: false).removeItemFromCart(shoe);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Cart>(
+    return Consumer<Controller>(
       builder: (context, value, child) => Padding(
         padding: const EdgeInsets.all(26.0),
         child: Column(
@@ -66,10 +66,10 @@ class _CartPageState extends State<CartPage> {
             // cart item list
             Expanded(
               child: ListView.builder(
-                itemCount: value.getUserCart().length,
+                itemCount: value.userCartItem.length,
                 itemBuilder: (context, index) {
                   // get individual shoe
-                  Shoe cartShoe = value.getUserCart()[index];
+                  Shoe cartShoe = value.userCartItem[index];
 
                   // return cart item
                   return Padding(
