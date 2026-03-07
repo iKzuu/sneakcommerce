@@ -1,75 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sneakcommerce/components/quantity.dart';
+import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
+import 'package:sneakcommerce/pages/detail_page.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
+import 'package:sneakcommerce/utils/idr_formatter.dart';
 
-class ItemList extends StatefulWidget {
-  Shoe shoe;
-  double? imageWidth;
-  double? imageHeight;
-  ItemList({super.key, required this.shoe, this.imageWidth = 110, this.imageHeight = 110});
+class ItemList extends StatelessWidget {
+  final Shoe shoe;
+  final double? imageWidth;
+  final double? imageHeight;
+  final bool isCart;
+  const ItemList({
+    super.key,
+    required this.shoe,
+    this.imageWidth = 110,
+    this.imageHeight = 110,
+    this.isCart = false,
+  });
 
-  @override
-  State<ItemList> createState() => _ItemListState();
-}
-
-class _ItemListState extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xFFAC9A8C).withValues(alpha: .6),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: widget.imageWidth,
-              height: widget.imageHeight,
-              child: Image.network(
-                widget.shoe.imagePath,
-                fit: BoxFit.cover,
+    return Consumer<Controller>(
+      builder: (context, value, index) {
+        final displayShoe = isCart
+            ? shoe
+            : value.shoeShopList.firstWhere((s) => s.id == shoe.id);
+
+        return Stack(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailPage(shoeId: displayShoe.id),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(color: AppColors.surface),
+                child: Row(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: imageWidth,
+                      height: imageHeight,
+                      child: Image.network(
+                        displayShoe.imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Column(
+                        spacing: 6,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            displayShoe.name,
+                            style: TextStyle(
+                              color: AppColors.onSurface,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+
+                          if (isCart && displayShoe.selectedSize != null)
+                            Text(
+                              "${displayShoe.selectedSize}",
+                              style: TextStyle(color: AppColors.onSurface),
+                            ),
+
+                          Text(
+                            displayShoe.brand,
+                            style: TextStyle(color: AppColors.onSurfaceVariant),
+                          ),
+
+                          Text(
+                            formatRupiah(displayShoe.price),
+                            style: TextStyle(
+                              color: AppColors.onSurface,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-    
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.shoe.name,
-                  style: TextStyle(
-                    color: Color(0xFF242424),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-    
-                SizedBox(height: 12),
-    
-                Text(
-                  widget.shoe.brand,
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                  ),
-                ),
-    
-                Text(
-                  widget.shoe.price,
-                  style: TextStyle(
-                    color: Color(0xFF464646),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+
+            if (isCart)
+              Quantity(shoe: shoe)
+          ],
+        );
+      },
     );
   }
 }
