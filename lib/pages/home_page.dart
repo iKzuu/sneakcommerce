@@ -4,6 +4,7 @@ import 'package:sneakcommerce/pages/cart_page.dart';
 import 'package:sneakcommerce/pages/route_transition.dart';
 import 'package:sneakcommerce/pages/shop_page.dart';
 import 'package:sneakcommerce/pages/wishlist_page.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,21 +28,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFC9BCAF),
+      backgroundColor: AppColors.background,
       extendBody: true,
       appBar: AppBar(
-        backgroundColor: Color(0xFF435150),
+        backgroundColor: AppColors.surface,
         title: Text(
           "SneakCommerce.",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.onSurface,
+          ),
         ),
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).push(createRoute()),
             icon: Icon(Icons.search),
-            color: Colors.white,
+            color: AppColors.onSurface,
           ),
         ],
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
         automaticallyImplyLeading: false,
       ),
 

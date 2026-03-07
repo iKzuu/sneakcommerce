@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneakcommerce/components/get_started_btn.dart';
-import 'package:sneakcommerce/pages/home_page.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -8,7 +8,7 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF435150),
+      backgroundColor: AppColors.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +21,7 @@ class IntroPage extends StatelessWidget {
                 fontFamily: "Poppins",
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: AppColors.onSurface,
               ),
             ),
           ),
@@ -44,7 +44,7 @@ class IntroPage extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: "Poppins",
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.onSurface,
                     fontSize: 20,
                   ),
                 ),
@@ -53,7 +53,7 @@ class IntroPage extends StatelessWidget {
                   "Your curated gateway to the world's most iconic sneakers.",
                   style: TextStyle(
                     fontFamily: "Poppins",
-                    color: Color(0xFFC4C4C4),
+                    color: AppColors.onSurfaceVariant,
                     fontSize: 16,
                   ),
                 ),
