@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/item_list.dart';
+import 'package:sneakcommerce/components/list_items.dart';
+import 'package:sneakcommerce/components/page_heading.dart';
 import 'package:sneakcommerce/controller/controller.dart';
-import 'package:sneakcommerce/models/shoe.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -13,93 +12,26 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
-  void removeItemFromCart(Shoe shoe) {
-    Provider.of<Controller>(context, listen: false).removeItemFromCart(shoe);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
-      builder: (context, value, child) => Padding(
-        padding: const EdgeInsets.all(26.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 120,
-              decoration: BoxDecoration(
-                border: BoxBorder.fromLTRB(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    style: BorderStyle.solid,
-                    width: 4.0,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Cart",
-                    style: TextStyle(
-                      color: Color(0xFF435150),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32,
-                    ),
-                  ),
-
-                  SizedBox(width: 12),
-
-                  Icon(
-                    Iconsax.shopping_bag5,
-                    size: 32,
-                    color: Color(0xFF435150),
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 12),
-
-            // cart item list
-            Expanded(
-              child: ListView.builder(
-                itemCount: value.userCartItem.length,
-                itemBuilder: (context, index) {
-                  // get individual shoe
-                  Shoe cartShoe = value.userCartItem[index];
-
-                  // return cart item
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Slidable(
-                      endActionPane: ActionPane(
-                        motion: StretchMotion(),
-                        children: [
-                          CustomSlidableAction(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.redAccent,
-                            borderRadius: BorderRadius.circular(12),
-                            onPressed: (BuildContext context) {
-                              removeItemFromCart(cartShoe);
-                            },
-                            child: Icon(Icons.delete_outline_rounded, size: 32),
-                          ),
-                        ],
-                      ),
-                      child: ItemList(
-                        shoe: cartShoe,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: PageHeading(text: "Cart", icon: Iconsax.shopping_bag5),
         ),
-      ),
+
+        Consumer<Controller>(
+          builder: (context, value, index) {
+            return ListItems(
+              onAction: (shoe) {
+                context.read<Controller>().removeItemFromCart(shoe);
+              },
+              items: value.userCartItem,
+              isCart: true,
+            );
+          },
+        ),
+      ],
     );
   }
 }
