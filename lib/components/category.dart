@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
 
 class Category extends StatelessWidget {
   Category({super.key});
@@ -21,26 +22,29 @@ class Category extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Provider.of<Controller>(context, listen: false).setCategoryIndex(index);
+                  Provider.of<Controller>(
+                    context,
+                    listen: false,
+                  ).setCategoryIndex(index);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
                     width: 80,
                     height: 30,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? Color(0xFF242424)
-                          : Colors.white,
+                          ? AppColors.onBackground
+                          : AppColors.surface,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       categories[index],
                       style: TextStyle(
                         color: isSelected
-                            ? Colors.white
-                            : Color(0xFF242424),
+                            ? AppColors.surface
+                            : AppColors.onBackground,
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sneakcommerce/pages/home_page.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
 
 class GetStartedButton extends StatelessWidget {
   const GetStartedButton({super.key});
@@ -14,42 +15,44 @@ class GetStartedButton extends StatelessWidget {
       ),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(10),
-        backgroundColor: Color(0xFFC9BCAF),
+        backgroundColor: AppColors.onBackground,
         fixedSize: Size(160, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60)),
         elevation: 0,
       ),
-      child: Row(
-        spacing: 20,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Get started",
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF435150),
-            ),
-          ),
-
-          Container(
-            width: 26,
-            height: 26,
-            decoration: BoxDecoration(
-              color: Color(0xFF435150),
-              borderRadius: BorderRadius.circular(22),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Image.asset(
-                "assets/icons/arrow.png",
-                width: 16,
-                height: 16,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Get started",
+              style: TextStyle(
+                fontFamily: "Poppins",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.surface,
               ),
             ),
-          ),
-        ],
+
+            Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24,
+                  color: AppColors.onSurface,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

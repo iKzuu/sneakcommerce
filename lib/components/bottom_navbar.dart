@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
 
 class BottomNavbar extends StatelessWidget {
   int currentIndex = 0;
@@ -12,19 +13,16 @@ class BottomNavbar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 54, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(60)
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(60),
       ),
       child: SalomonBottomBar(
-        selectedItemColor: Color(0xFF435150),
-        unselectedItemColor: Color(0xFF242424),
+        selectedItemColor: AppColors.onSurface,
+        unselectedItemColor: AppColors.onSurfaceVariant,
         currentIndex: currentIndex,
         onTap: (value) => onTap!(value),
         items: [
-          SalomonBottomBarItem(
-            icon: Icon(Iconsax.home),
-            title: Text("Home"),
-          ),
+          SalomonBottomBarItem(icon: Icon(Iconsax.home), title: Text("Home")),
           SalomonBottomBarItem(
             icon: Icon(Iconsax.shopping_bag),
             title: Text("Cart"),
