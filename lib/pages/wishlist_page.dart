@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/item_list.dart';
+import 'package:sneakcommerce/components/list_items.dart';
+import 'package:sneakcommerce/components/page_heading.dart';
 import 'package:sneakcommerce/controller/controller.dart';
-import 'package:sneakcommerce/models/shoe.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -14,86 +13,26 @@ class WishlistPage extends StatefulWidget {
 }
 
 class _WishlistPageState extends State<WishlistPage> {
-  void removeItemFromWishlist(Shoe shoe) {
-    Provider.of<Controller>(context, listen: false).removeItemFromWishlist(shoe);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
-      builder: (context, value, child) => Padding(
-        padding: const EdgeInsets.all(26.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 200,
-              decoration: BoxDecoration(
-                border: BoxBorder.fromLTRB(
-                  bottom: BorderSide(
-                    color: Colors.white,
-                    style: BorderStyle.solid,
-                    width: 4.0,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Wishlist",
-                    style: TextStyle(
-                      color: Color(0xFF435150),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32,
-                    ),
-                  ),
-
-                  SizedBox(width: 12),
-
-                  Icon(Iconsax.heart, size: 32, color: Color(0xFF435150)),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 12),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: value.userWishlistItem.length,
-                itemBuilder: (context, index) {
-                  // get individual shoe
-                  Shoe wishlistShoe = value.userWishlistItem[index];
-
-                  // return cart item
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Slidable(
-                      endActionPane: ActionPane(
-                        motion: StretchMotion(),
-                        children: [
-                          CustomSlidableAction(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.redAccent,
-                            borderRadius: BorderRadius.circular(12),
-                            onPressed: (BuildContext context) {
-                              value.toggleFavorite(wishlistShoe.id);
-                              removeItemFromWishlist(wishlistShoe);
-                            },
-                            child: Icon(Icons.delete_outline_rounded, size: 32),
-                          ),
-                        ],
-                      ),
-                      child: ItemList(shoe: wishlistShoe),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: PageHeading(text: "Wishlist", icon: Iconsax.heart5),
         ),
-      ),
+
+        Consumer<Controller>(
+          builder: (context, value, index) {
+            return ListItems(
+              onAction: (shoe) {
+                context.read<Controller>().toggleFavorite(shoe.id);
+                context.read<Controller>().removeItemFromWishlist(shoe);
+              },
+              items: value.userWishlistItem,
+            );
+          },
+        ),
+      ],
     );
   }
 }
