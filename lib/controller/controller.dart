@@ -17,6 +17,15 @@ class Controller extends ChangeNotifier {
   // get cart
   List<Shoe> get userCartItem => userCart;
 
+  List<String> availableSize = ["40", "41", "42", "43", "44"];
+  String? _tempSelectedSize;
+  String? get tempSelectedSize => _tempSelectedSize;
+
+  void setSelectedSize(String size) {
+    _tempSelectedSize = size;
+    notifyListeners();
+  }
+
   // search filter
   String _searchQuery = "";
 
@@ -35,7 +44,7 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
-  // filter shoe by brand 
+  // filter shoe by brand
   final List<String> categories = ["All", "Nike", "Adidas", "NB", "Puma"];
   int _selectedCategoryIndex = 0;
   int get selectedCategoryIndex => _selectedCategoryIndex;
@@ -71,8 +80,52 @@ class Controller extends ChangeNotifier {
 
   // add items to cart
   void addItemToCart(Shoe shoe) {
-    userCart.add(shoe);
+    int index = userCart.indexWhere(
+      (item) => item.id == shoe.id && item.selectedSize == _tempSelectedSize,
+    );
+
+    if (index != -1) {
+      userCart[index].quantity++;
+    } else {
+      Shoe newShoe = Shoe(
+        id: shoe.id,
+        name: shoe.name,
+        price: shoe.price,
+        imagePath: shoe.imagePath,
+        brand: shoe.brand,
+        selectedSize: _tempSelectedSize,
+        quantity: 1,
+      );
+      userCart.add(newShoe);
+    }
+
+    _tempSelectedSize = null;
     notifyListeners();
+  }
+
+  void incrementQuantity(Shoe shoe) {
+    if (shoe.quantity < 5) {
+      shoe.quantity++;
+      notifyListeners();
+    }
+  }
+
+  void decrementQuantity(Shoe shoe) {
+    if (shoe.quantity > 1) {
+      shoe.quantity--;
+    } else {
+      userCart.remove(shoe);
+    }
+    notifyListeners();
+  }
+
+  double getTotalPrice() {
+    double total = 0;
+    for (var item in userCart) {
+      total != item.priceAsDouble * item.quantity;
+    }
+
+    return total;
   }
 
   // remove items from cart
