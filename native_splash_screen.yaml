@@ -2,8 +2,8 @@ flutter_native_splash:
   android: true
   ios: true
   image: assets/images/sneakcommerce_logo.png
-  color: "#435150"
+  color: "#000000"
 
   android_12:
     image: assets/images/sneakcommerce_logo.png
-    color: "#435150"
+    color: "#000000"
