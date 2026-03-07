@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
+import 'package:sneakcommerce/components/bottom_add_to_cart_btn.dart';
+import 'package:sneakcommerce/components/size_picker.dart';
 import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/pages/route_transition.dart';
+import 'package:sneakcommerce/theme/app_colors.dart';
+import 'package:sneakcommerce/utils/idr_formatter.dart';
 
 class DetailPage extends StatelessWidget {
   final int shoeId;
@@ -8,36 +14,84 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<Controller>();
+    return Consumer<Controller>(
+      builder: (context, value, index) {
+        final shoe = value.shoeShopList.firstWhere((shoe) => shoe.id == shoeId);
 
-    final shoe = controller.shoeShopList.firstWhere(
-      (shoe) => shoe.id == shoeId,
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Color(0xFF435150),
-        title: Text(
-          shoe.name,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.bold,
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          appBar: AppBar(
+            foregroundColor: AppColors.onSurface,
+            backgroundColor: AppColors.surface,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(createRoute());
+                },
+                icon: Icon(Icons.search),
+              ),
+              IconButton(onPressed: () {}, icon: Icon(Iconsax.shopping_bag)),
+            ],
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          spacing: 10,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Image.network(shoe.imagePath, fit: BoxFit.cover),
-            ),
-          ],
-        ),
-      ),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 320,
+                  child: Image.network(shoe.imagePath, fit: BoxFit.cover),
+                ),
+              ),
+
+              SliverPadding(
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    spacing: 4,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        shoe.name,
+                        style: TextStyle(
+                          color: AppColors.onSurface,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        shoe.brand,
+                        style: TextStyle(
+                          color: AppColors.onSurfaceVariant,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        formatRupiah(shoe.price),
+                        style: TextStyle(
+                          color: AppColors.onSurface,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverToBoxAdapter(child: SizePicker()),
+              ),
+            ],
+          ),
+
+          bottomNavigationBar: BottomAddToCartBtn(shoe: shoe),
+        );
+      },
     );
   }
 }
