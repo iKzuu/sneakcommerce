@@ -36,10 +36,28 @@ class DetailPage extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 320,
-                  child: Image.network(shoe.imagePath, fit: BoxFit.cover),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 320,
+                      child: Image.network(shoe.imagePath, fit: BoxFit.cover),
+                    ),
+
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: IconButton(
+                        onPressed: () {
+                          value.toggleFavorite(shoeId);
+                        },
+                        icon: Icon(
+                          shoe.isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
