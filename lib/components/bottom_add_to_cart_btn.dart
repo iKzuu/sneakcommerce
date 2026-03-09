@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
+import 'package:sneakcommerce/utils/dialog_utils.dart';
 
 class BottomAddToCartBtn extends StatelessWidget {
   final Shoe shoe;
@@ -18,24 +19,32 @@ class BottomAddToCartBtn extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            context.read<Controller>().addItemToCart(shoe);
-
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                backgroundColor: AppColors.onBackground,
-                title: Text(
+            context.read<Controller>().addItemToCart(
+              shoe,
+              onMaxReached: () {
+                DialogUtils.showInfoDialog(
+                  context,
+                  "Maximum Amount Reached",
+                  "You can only purchase a maximum of 5 pairs for each model and size",
+                );
+              },
+              onSuccess: () {
+                DialogUtils.showInfoDialog(
+                  context,
                   "Added 1 item to cart",
-                  style: TextStyle(color: AppColors.surface),
-                ),
-                content: Text(
                   "Check your cart",
-                  style: TextStyle(color: AppColors.surface),
-                ),
-              ),
+                );
+              },
+              onSizeNotSelected: () {
+                DialogUtils.showInfoDialog(
+                  context,
+                  "Size Not selected",
+                  "Please select size first",
+                );
+              },
             );
-
           },
+
           style: ElevatedButton.styleFrom(
             surfaceTintColor: Colors.transparent,
             elevation: 0,
