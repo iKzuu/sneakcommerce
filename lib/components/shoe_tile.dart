@@ -7,8 +7,8 @@ import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
 
 class ShoeTile extends StatelessWidget {
-  Shoe shoe;
-  ShoeTile({super.key, required this.shoe});
+  final Shoe shoe;
+  const ShoeTile({super.key, required this.shoe});
 
   @override
   Widget build(BuildContext context) {
