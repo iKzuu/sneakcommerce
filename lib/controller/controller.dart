@@ -17,6 +17,7 @@ class Controller extends ChangeNotifier {
   // get cart
   List<Shoe> get userCartItem => userCart;
 
+  // size selection
   List<String> availableSize = ["40", "41", "42", "43", "44"];
   String? _tempSelectedSize;
   String? get tempSelectedSize => _tempSelectedSize;
@@ -79,13 +80,24 @@ class Controller extends ChangeNotifier {
   }
 
   // add items to cart
-  void addItemToCart(Shoe shoe) {
+  void addItemToCart(Shoe shoe, {VoidCallback? onMaxReached, VoidCallback? onSuccess, VoidCallback? onSizeNotSelected}) {
+    if (_tempSelectedSize == null) {
+      if (onSizeNotSelected != null) onSizeNotSelected();
+      return;
+    }
+
     int index = userCart.indexWhere(
       (item) => item.id == shoe.id && item.selectedSize == _tempSelectedSize,
     );
 
     if (index != -1) {
-      userCart[index].quantity++;
+      if (userCart[index].quantity < 5) {
+        userCart[index].quantity++;
+        if (onSuccess != null) onSuccess();
+      } else {
+        if (onMaxReached != null) onMaxReached();
+        return;
+      }
     } else {
       Shoe newShoe = Shoe(
         id: shoe.id,
@@ -97,6 +109,7 @@ class Controller extends ChangeNotifier {
         quantity: 1,
       );
       userCart.add(newShoe);
+      if (onSuccess != null) onSuccess();
     }
 
     _tempSelectedSize = null;
@@ -140,6 +153,7 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+  // toggle wishlist icon when adding or removing item from wishlist
   void toggleFavorite(int shoeId) {
     final index = shoeShop.indexWhere((shoe) => shoe.id == shoeId);
     if (index != -1) {
