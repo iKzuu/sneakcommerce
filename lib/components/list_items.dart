@@ -7,16 +7,24 @@ class ListItems extends StatelessWidget {
   final List<Shoe> items;
   final void Function(Shoe shoe) onAction;
   final bool isCart;
-  const ListItems({super.key, required this.onAction, required this.items, this.isCart = false});
+  final double? imageWidth;
+  final double? imageHeight;
+  const ListItems({
+    super.key,
+    required this.onAction,
+    required this.items,
+    this.isCart = false,
+    this.imageWidth,
+    this.imageHeight,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SliverList.builder(
       itemCount: items.length,
       itemBuilder: (context, index) {
-
         final shoe = items[index];
-        
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Slidable(
@@ -31,7 +39,12 @@ class ListItems extends StatelessWidget {
                 ),
               ],
             ),
-            child: ItemList(shoe: shoe, isCart: isCart),
+            child: ItemList(
+              shoe: shoe,
+              isCart: isCart,
+              imageWidth: imageWidth,
+              imageHeight: imageHeight,
+            ),
           ),
         );
       },
