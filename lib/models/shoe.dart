@@ -5,6 +5,7 @@ class Shoe {
   final String imagePath;
   final String brand;
   bool isFavorite;
+  bool isSelected;
   int quantity;
   String? selectedSize;
 
@@ -17,6 +18,7 @@ class Shoe {
     this.isFavorite = false,
     this.quantity = 1,
     this.selectedSize,
+    this.isSelected = true,
   });
 
   double get priceAsDouble => price.toDouble();
