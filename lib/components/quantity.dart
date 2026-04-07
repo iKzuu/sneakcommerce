@@ -6,20 +6,32 @@ import 'package:sneakcommerce/theme/app_colors.dart';
 
 class Quantity extends StatelessWidget {
   final Shoe shoe;
-  const Quantity({super.key, required this.shoe});
+  final double? positionRight;
+  final double? positionBottom;
+  final double? positionTop;
+  final double? positionLeft;
+  const Quantity({
+    super.key,
+    required this.shoe,
+    this.positionRight,
+    this.positionBottom,
+    this.positionTop,
+    this.positionLeft,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<Controller>(
       builder: (context, value, index) {
         return Positioned(
-          right: 10,
-          bottom: 6,
+          right: positionRight,
+          bottom: positionBottom,
+          top: positionTop,
+          left: positionLeft,
           child: Row(
             children: [
               IconButton(
-                onPressed: () =>
-                    value.decrementQuantity(shoe),
+                onPressed: () => value.decrementQuantity(shoe),
                 icon: Icon(
                   shoe.quantity <= 1
                       ? Icons.delete_outline_rounded
@@ -32,8 +44,7 @@ class Quantity extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
               IconButton(
-                onPressed: () =>
-                    value.incrementQuantity(shoe),
+                onPressed: () => value.incrementQuantity(shoe),
                 icon: Icon(
                   Icons.add_circle_outline_rounded,
                   color: shoe.quantity >= 5
