@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:sneakcommerce/components/bottom_navbar.dart';
 import 'package:sneakcommerce/pages/cart_page.dart';
+import 'package:sneakcommerce/pages/orders_page.dart';
 import 'package:sneakcommerce/pages/route_transition.dart';
 import 'package:sneakcommerce/pages/shop_page.dart';
 import 'package:sneakcommerce/pages/wishlist_page.dart';
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Widget> _pages = [ShopPage(), CartPage(), WishlistPage()];
+  final List<Widget> _pages = [ShopPage(), OrdersPage(), WishlistPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,18 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Navigator.of(context).push(createRoute()),
             icon: Icon(Icons.search),
             color: AppColors.onSurface,
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CartPage()),
+              );
+            },
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+              color: AppColors.onSurface,
+            ),
           ),
         ],
         surfaceTintColor: Colors.transparent,
