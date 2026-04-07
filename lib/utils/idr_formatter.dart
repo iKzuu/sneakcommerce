@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-String formatRupiah(int price) {
+String formatRupiah(num price) {
   return NumberFormat.currency(
     locale: 'id_ID',
     symbol: 'Rp ',
