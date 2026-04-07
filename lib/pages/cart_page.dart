@@ -14,24 +14,36 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: PageHeading(text: "Cart", icon: Iconsax.shopping_bag5),
-        ),
-
-        Consumer<Controller>(
-          builder: (context, value, index) {
-            return ListItems(
-              onAction: (shoe) {
-                context.read<Controller>().removeItemFromCart(shoe);
-              },
-              items: value.userCartItem,
-              isCart: true,
-            );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Cart"),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
           },
+          icon: Icon(Icons.arrow_back_ios_new),
         ),
-      ],
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: PageHeading(text: "Cart", icon: Iconsax.shopping_bag5),
+          ),
+
+          Consumer<Controller>(
+            builder: (context, value, index) {
+              return ListItems(
+                onAction: (shoe) {
+                  context.read<Controller>().removeItemFromCart(shoe);
+                },
+                items: value.userCartItem,
+                isCart: true,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
