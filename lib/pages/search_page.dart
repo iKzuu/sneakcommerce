@@ -20,6 +20,12 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         foregroundColor: AppColors.onSurface,
         backgroundColor: AppColors.surface,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
         title: Searchbar(controller: _searchController),
         elevation: 0,
         surfaceTintColor: Colors.transparent,
