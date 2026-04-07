@@ -48,6 +48,23 @@ class ItemList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    if (isCart)
+                      SizedBox(
+                        height: 20,
+                        width: 32,
+                        child: Checkbox(
+                          visualDensity: VisualDensity.compact,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          value: shoe.isSelected,
+                          activeColor: AppColors.onSurface,
+                          checkColor: AppColors.background,
+                          onChanged: (val) {
+                            value.toggleSelection(shoe);
+                          },
+                        ),
+                      ),
+
                     SizedBox(
                       width: imageWidth,
                       height: imageHeight,
@@ -100,7 +117,7 @@ class ItemList extends StatelessWidget {
             ),
 
             if (isCart)
-              Quantity(shoe: shoe)
+              Quantity(shoe: shoe, positionBottom: 0, positionRight: 0),
           ],
         );
       },
