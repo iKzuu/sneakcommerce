@@ -132,12 +132,14 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+  // get total value for each item in cart if selected and return total price
   double getTotalPrice() {
     double total = 0;
     for (var item in userCart) {
-      total != item.priceAsDouble * item.quantity;
+      if (item.isSelected) {
+        total += item.priceAsDouble * item.quantity.toInt();
+      }
     }
-
     return total;
   }
 
@@ -150,6 +152,12 @@ class Controller extends ChangeNotifier {
   // remove items from wishlist
   void removeItemFromWishlist(Shoe shoe) {
     userWishlist.remove(shoe);
+    notifyListeners();
+  }
+
+  // toggle selection in cart page
+  void toggleSelection(Shoe shoe) {
+    shoe.isSelected = !shoe.isSelected;
     notifyListeners();
   }
 
