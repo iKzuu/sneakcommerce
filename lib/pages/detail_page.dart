@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/bottom_add_to_cart_btn.dart';
 import 'package:sneakcommerce/components/size_picker.dart';
