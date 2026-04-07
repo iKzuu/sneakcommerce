@@ -14,7 +14,7 @@ class BottomAddToCartBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      color: AppColors.surface,
+      color: AppColors.onSurface,
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -59,11 +59,11 @@ class BottomAddToCartBtn extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 10,
             children: [
-              Icon(Iconsax.shopping_bag5, size: 18, color: AppColors.onSurface),
+              Icon(Iconsax.shopping_bag5, size: 18, color: AppColors.surface),
               Text(
                 "Add To Cart",
                 style: TextStyle(
-                  color: AppColors.onSurface,
+                  color: AppColors.surface,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
