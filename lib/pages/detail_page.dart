@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/bottom_add_to_cart_btn.dart';
 import 'package:sneakcommerce/components/size_picker.dart';
 import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/pages/cart_page.dart';
 import 'package:sneakcommerce/pages/route_transition.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
@@ -23,6 +24,12 @@ class DetailPage extends StatelessWidget {
           appBar: AppBar(
             foregroundColor: AppColors.onSurface,
             backgroundColor: AppColors.surface,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back_ios_new),
+            ),
             actions: [
               IconButton(
                 onPressed: () {
@@ -30,7 +37,18 @@ class DetailPage extends StatelessWidget {
                 },
                 icon: Icon(Icons.search),
               ),
-              IconButton(onPressed: () {}, icon: Icon(Iconsax.shopping_bag)),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CartPage()),
+                  );
+                },
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: AppColors.onSurface,
+                ),
+              ),
             ],
           ),
           body: CustomScrollView(
@@ -52,7 +70,9 @@ class DetailPage extends StatelessWidget {
                           value.toggleFavorite(shoeId);
                         },
                         icon: Icon(
-                          shoe.isFavorite ? Iconsax.heart5 : Iconsax.heart,
+                          shoe.isFavorite
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
                           size: 30,
                         ),
                       ),
