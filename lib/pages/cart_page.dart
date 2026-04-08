@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/list_items.dart';
 import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/pages/chekout_page.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
 
@@ -15,7 +16,10 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
+        foregroundColor: AppColors.onSurface,
+        backgroundColor: AppColors.surface,
         title: Text("Cart"),
         centerTitle: true,
         leading: IconButton(
@@ -79,12 +83,26 @@ class _CartPageState extends State<CartPage> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: value.hasSelectedItem
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CheckoutPage(),
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       surfaceTintColor: Colors.transparent,
                       elevation: 0,
                       backgroundColor: AppColors.surface,
                       shadowColor: AppColors.onSurfaceVariant,
+                      disabledBackgroundColor: AppColors.onSurfaceVariant
+                          .withValues(alpha: 0.3),
+                      disabledForegroundColor: AppColors.surface.withValues(
+                        alpha: 0.5,
+                      ),
                       padding: EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
