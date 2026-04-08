@@ -117,7 +117,7 @@ class ItemList extends StatelessWidget {
             ),
 
             if (isCart)
-              Quantity(shoe: shoe, positionBottom: 0, positionRight: 0),
+              Quantity(shoe: shoe, positionBottom: 10, positionRight: 10),
           ],
         );
       },
