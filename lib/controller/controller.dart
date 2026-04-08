@@ -142,6 +142,9 @@ class Controller extends ChangeNotifier {
     }
     return total;
   }
+  
+  // check if there is selected item in cart
+  bool get hasSelectedItem => userCart.any((item) => item.isSelected);
 
   // remove items from cart
   void removeItemFromCart(Shoe shoe) {
