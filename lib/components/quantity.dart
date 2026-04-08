@@ -28,31 +28,51 @@ class Quantity extends StatelessWidget {
           bottom: positionBottom,
           top: positionTop,
           left: positionLeft,
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => value.decrementQuantity(shoe),
-                icon: Icon(
-                  shoe.quantity <= 1
-                      ? Icons.delete_outline_rounded
-                      : Icons.remove_circle_outline_rounded,
-                  color: AppColors.onSurface,
+          child: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.onSurface),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Row(
+              spacing: 10,
+              children: [
+                IconButton(
+                  onPressed: () => value.decrementQuantity(shoe),
+                  icon: Icon(
+                    shoe.quantity <= 1
+                        ? Icons.delete_outline_rounded
+                        : Icons.remove_outlined,
+                    color: AppColors.onSurface,
+                    size: 22,
+                  ),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  style: const ButtonStyle(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
                 ),
-              ),
-              Text(
-                shoe.quantity.toString(),
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-              ),
-              IconButton(
-                onPressed: () => value.incrementQuantity(shoe),
-                icon: Icon(
-                  Icons.add_circle_outline_rounded,
-                  color: shoe.quantity >= 5
-                      ? AppColors.onSurfaceVariant
-                      : AppColors.onSurface,
+                Text(
+                  shoe.quantity.toString(),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 ),
-              ),
-            ],
+                IconButton(
+                  onPressed: () => value.incrementQuantity(shoe),
+                  icon: Icon(
+                    Icons.add_outlined,
+                    size: 22,
+                    color: shoe.quantity >= 5
+                        ? AppColors.onSurfaceVariant
+                        : AppColors.onSurface,
+                  ),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  style: const ButtonStyle(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
