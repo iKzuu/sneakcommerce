@@ -12,21 +12,21 @@ class ItemList extends StatelessWidget {
   final double? imageWidth;
   final double? imageHeight;
   final bool isCart;
+  final bool isCheckout;
   const ItemList({
     super.key,
     required this.shoe,
     this.imageWidth = 110,
     this.imageHeight = 110,
     this.isCart = false,
+    this.isCheckout = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<Controller>(
       builder: (context, value, index) {
-        final displayShoe = isCart
-            ? shoe
-            : value.shoeShopList.firstWhere((s) => s.id == shoe.id);
+        final displayShoe = shoe;
 
         return Stack(
           children: [
@@ -90,7 +90,8 @@ class ItemList extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
 
-                          if (isCart && displayShoe.selectedSize != null)
+                          if ((isCart || isCheckout) &&
+                              displayShoe.selectedSize != null)
                             Text(
                               "${displayShoe.selectedSize}",
                               style: TextStyle(color: AppColors.onSurface),
@@ -101,13 +102,35 @@ class ItemList extends StatelessWidget {
                             style: TextStyle(color: AppColors.onSurfaceVariant),
                           ),
 
-                          Text(
-                            formatRupiah(displayShoe.price),
-                            style: TextStyle(
-                              color: AppColors.onSurface,
-                              fontWeight: FontWeight.w500,
+                          if (isCheckout)
+                            Row(
+                              spacing: 6,
+                              children: [
+                                Text(
+                                  formatRupiah(displayShoe.price),
+                                  style: TextStyle(
+                                    color: AppColors.onSurface,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+
+                                Text(
+                                  "x${displayShoe.quantity}",
+                                  style: TextStyle(
+                                    color: AppColors.onSurfaceVariant,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            Text(
+                              formatRupiah(displayShoe.price),
+                              style: TextStyle(
+                                color: AppColors.onSurface,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),
