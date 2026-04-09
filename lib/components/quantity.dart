@@ -35,7 +35,7 @@ class Quantity extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
             ),
             child: Row(
-              spacing: 10,
+              spacing: 14,
               children: [
                 IconButton(
                   onPressed: () => value.decrementQuantity(shoe),
