@@ -9,8 +9,10 @@ class ShippingController extends ChangeNotifier {
 
   ShippingMethod? get selectedShipping => _selectedShipping;
 
-  void initShipping() {
-    _selectedShipping ??= shippingMethods.first;
+  ShippingController() {
+    _selectedShipping = shippingMethods.isNotEmpty
+        ? shippingMethods.first
+        : null;
   }
 
   void selectShipping(ShippingMethod method) {
