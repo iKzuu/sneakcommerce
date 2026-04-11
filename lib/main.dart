@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/payment_method_controller.dart';
 import 'package:sneakcommerce/controller/shipping_controller.dart';
 import 'package:sneakcommerce/pages/intro_page.dart';
 
@@ -17,13 +18,12 @@ class SneakCommerce extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => Controller()),
         ChangeNotifierProvider(create: (_) => ShippingController()),
+        ChangeNotifierProvider(create: (_) => PaymentMethodController()),
       ],
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroPage(),
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-        ),
+        theme: ThemeData(fontFamily: 'Poppins'),
       ),
     );
   }
