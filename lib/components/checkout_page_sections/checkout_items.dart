@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/item_list.dart';
-import 'package:sneakcommerce/components/shipping_sheet.dart';
+import 'package:sneakcommerce/components/bottom_sheets/shipping_sheet.dart';
 import 'package:sneakcommerce/controller/controller.dart';
 import 'package:sneakcommerce/controller/shipping_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
