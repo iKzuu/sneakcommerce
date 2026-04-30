@@ -80,7 +80,12 @@ class Controller extends ChangeNotifier {
   }
 
   // add items to cart
-  void addItemToCart(Shoe shoe, {VoidCallback? onMaxReached, VoidCallback? onSuccess, VoidCallback? onSizeNotSelected}) {
+  void addItemToCart(
+    Shoe shoe, {
+    VoidCallback? onMaxReached,
+    VoidCallback? onSuccess,
+    VoidCallback? onSizeNotSelected,
+  }) {
     if (_tempSelectedSize == null) {
       if (onSizeNotSelected != null) onSizeNotSelected();
       return;
@@ -132,6 +137,24 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+  // get total item is selected
+  int getSelectedItemQuantity() {
+    return userCart
+        .where((item) => item.isSelected)
+        .fold(0, (sum, item) => sum + item.quantity);
+  }
+
+  // get total all quantity selected item
+  int getTotalQuantity() {
+    int total = 0;
+    for (var item in userCart) {
+      if (item.isSelected) {
+        total += item.quantity;
+      }
+    }
+    return total;
+  }
+
   // get total value for each item in cart if selected and return total price
   double getTotalPrice() {
     double total = 0;
@@ -142,7 +165,7 @@ class Controller extends ChangeNotifier {
     }
     return total;
   }
-  
+
   // check if there is selected item in cart
   bool get hasSelectedItem => userCart.any((item) => item.isSelected);
 
