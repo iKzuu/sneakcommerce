@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/list_items.dart';
 import 'package:sneakcommerce/controller/controller.dart';
-import 'package:sneakcommerce/pages/chekout_page.dart';
+import 'package:sneakcommerce/pages/checkout_page.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
 
