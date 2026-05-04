@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/shoe_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 
 class Category extends StatelessWidget {
@@ -10,7 +10,7 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
+    return Consumer<ShoeController>(
       builder: (context, value, child) {
         return SizedBox(
           height: 30,
@@ -22,7 +22,7 @@ class Category extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Provider.of<Controller>(
+                  Provider.of<ShoeController>(
                     context,
                     listen: false,
                   ).setCategoryIndex(index);
