@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/banner.dart';
 import 'package:sneakcommerce/components/shoe_tile.dart';
 import 'package:sneakcommerce/components/category.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/shoe_controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 
@@ -35,7 +35,7 @@ class ShopPage extends StatelessWidget {
           ),
         ),
 
-        Consumer<Controller>(
+        Consumer<ShoeController>(
           builder: (context, value, index) {
             return SliverPadding(
               padding: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 88.0),
