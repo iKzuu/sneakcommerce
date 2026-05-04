@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/summary_item.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/cart_controller.dart';
 import 'package:sneakcommerce/controller/shipping_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
@@ -28,9 +28,9 @@ class OrderDetails extends StatelessWidget {
               ),
             ),
           ),
-          Consumer2<Controller, ShippingController>(
+          Consumer2<CartController, ShippingController>(
             builder: (context, cartController, shippingController, _) {
-              final totalItem = cartController.getTotalPrice();
+              final totalItem = cartController.totalPrice;
               final shippingCost =
                   shippingController.selectedShipping?.cost ?? 0;
               final total = totalItem + shippingCost;
@@ -42,7 +42,7 @@ class OrderDetails extends StatelessWidget {
                     children: [
                       SummaryItem(
                         label:
-                            "Total Price (${cartController.getSelectedItemQuantity()} Item)",
+                            "Total Price (${cartController.selectedItemQuantity} Item)",
                         value: formatRupiah(totalItem),
                       ),
                       SummaryItem(
