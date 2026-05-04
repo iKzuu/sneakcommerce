@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/item_list.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/components/cards/product_card.dart';
+import 'package:sneakcommerce/controller/shoe_search_controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
 class SearchListItems extends StatelessWidget {
@@ -9,7 +9,7 @@ class SearchListItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
+    return Consumer<ShoeSearchController>(
       builder: (context, value, child) {
         return ListView.builder(
           shrinkWrap: true,
@@ -19,7 +19,7 @@ class SearchListItems extends StatelessWidget {
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: ItemList(
+              child: ProductCard(
                 shoe: searchShoe,
                 imageWidth: 80,
                 imageHeight: 80,
