@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/list_items.dart';
-import 'package:sneakcommerce/components/page_heading.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/components/card_list/product_card_list.dart';
+import 'package:sneakcommerce/controller/wishlist_controller.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -17,18 +15,17 @@ class _WishlistPageState extends State<WishlistPage> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: PageHeading(text: "Wishlist", icon: Iconsax.heart5),
-        ),
-
-        Consumer<Controller>(
-          builder: (context, value, index) {
-            return ListItems(
+        Consumer<WishlistController>(
+          builder: (context, value, _) {
+            return ProductCardList(
               onAction: (shoe) {
-                context.read<Controller>().toggleFavorite(shoe.id);
-                context.read<Controller>().removeItemFromWishlist(shoe);
+                context.read<WishlistController>().toggleFavorite(shoe.id);
+                context.read<WishlistController>().removeItemFromWishlist(shoe);
               },
               items: value.userWishlistItem,
+              
+              // atau kalau aku engga set imageWidth/Height di sini juga image gede
+
             );
           },
         ),
