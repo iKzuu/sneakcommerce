@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/shoe_controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 import 'package:sneakcommerce/pages/detail_page.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
@@ -12,7 +12,7 @@ class ShoeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
+    return Consumer<ShoeController>(
       builder: (context, value, child) {
         final shoes = value.shoeShopList.firstWhere((s) => s.id == shoe.id);
 
