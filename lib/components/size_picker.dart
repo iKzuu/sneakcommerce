@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/cart_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 
 class SizePicker extends StatelessWidget {
@@ -8,7 +8,7 @@ class SizePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
+    return Consumer<CartController>(
       builder: (context, value, index) {
         return Row(
           spacing: 8,
