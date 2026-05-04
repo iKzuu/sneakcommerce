@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/list_items.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/components/card_list/cart_item_card_list.dart';
+import 'package:sneakcommerce/controller/cart_controller.dart';
 import 'package:sneakcommerce/pages/checkout_page.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
@@ -31,14 +31,13 @@ class _CartPageState extends State<CartPage> {
       ),
       body: CustomScrollView(
         slivers: [
-          Consumer<Controller>(
-            builder: (context, value, index) {
-              return ListItems(
-                onAction: (shoe) {
-                  context.read<Controller>().removeItemFromCart(shoe);
+          Consumer<CartController>(
+            builder: (context, value, _) {
+              return CartItemCardList(
+                onAction: (item) {
+                  context.read<CartController>().removeItemFromCart(item);
                 },
                 items: value.userCartItem,
-                isCart: true,
                 imageWidth: 80,
                 imageHeight: 80,
               );
@@ -47,7 +46,7 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
 
-      bottomNavigationBar: Consumer<Controller>(
+      bottomNavigationBar: Consumer<CartController>(
         builder: (context, value, child) {
           if (value.userCartItem.isEmpty) return const SizedBox.shrink();
 
@@ -73,7 +72,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       Text(
-                        formatRupiah(value.getTotalPrice()),
+                        formatRupiah(value.totalPrice),
                         style: TextStyle(
                           color: AppColors.surface,
                           fontSize: 18,
