@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/components/item_list.dart';
+import 'package:sneakcommerce/components/cards/checkout_item_card.dart';
 import 'package:sneakcommerce/components/bottom_sheets/shipping_sheet.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/cart_controller.dart';
 import 'package:sneakcommerce/controller/shipping_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/idr_formatter.dart';
@@ -31,15 +31,14 @@ class CheckoutItems extends StatelessWidget {
             ),
           ),
 
-          Consumer<Controller>(
+          // checkout items
+          Consumer<CartController>(
             builder: (context, controller, child) {
-              final selectedItems = controller.userCartItem
-                  .where((item) => item.isSelected)
-                  .toList();
+              final selectedItems = controller.selectedItems;
 
               return Column(
                 children: selectedItems.map((shoe) {
-                  return ItemList(shoe: shoe, isCheckout: true);
+                  return CheckoutItemCard(shoe: shoe);
                 }).toList(),
               );
             },
