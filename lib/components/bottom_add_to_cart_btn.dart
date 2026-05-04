@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/cart_controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 import 'package:sneakcommerce/utils/dialog_utils.dart';
@@ -19,7 +19,7 @@ class BottomAddToCartBtn extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            context.read<Controller>().addItemToCart(
+            context.read<CartController>().addItemToCart(
               shoe,
               onMaxReached: () {
                 DialogUtils.showInfoDialog(
