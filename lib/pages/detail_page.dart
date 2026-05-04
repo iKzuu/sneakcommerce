@@ -15,9 +15,9 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ShoeController>(
-      builder: (context, value, index) {
-        final shoe = value.shoeShopList.firstWhere((shoe) => shoe.id == shoeId);
+    return Consumer2<ShoeController, WishlistController>(
+      builder: (context, shoeController, wishlistController, _) {
+        final shoe = shoeController.shoeShopList.firstWhere((shoe) => shoe.id == shoeId);
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -70,7 +70,7 @@ class DetailPage extends StatelessWidget {
                           context.read<WishlistController>().toggleFavorite(shoeId);
                         },
                         icon: Icon(
-                          shoe.isFavorite
+                          wishlistController.isFavorite(shoeId)
                               ? Icons.favorite_rounded
                               : Icons.favorite_border_rounded,
                           size: 30,
