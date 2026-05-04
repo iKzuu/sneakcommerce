@@ -13,8 +13,8 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     required this.shoe,
-    this.imageWidth = 110, // padahal di sini udah ada nilai default
-    this.imageHeight = 110, // padahal di sini udah ada nilai default
+    this.imageWidth = 110,
+    this.imageHeight = 110,
   });
 
   @override
