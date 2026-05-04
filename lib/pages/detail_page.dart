@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/components/bottom_add_to_cart_btn.dart';
 import 'package:sneakcommerce/components/size_picker.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/shoe_controller.dart';
+import 'package:sneakcommerce/controller/wishlist_controller.dart';
 import 'package:sneakcommerce/pages/cart_page.dart';
 import 'package:sneakcommerce/pages/route_transition.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
@@ -14,7 +15,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Controller>(
+    return Consumer<ShoeController>(
       builder: (context, value, index) {
         final shoe = value.shoeShopList.firstWhere((shoe) => shoe.id == shoeId);
 
@@ -66,7 +67,7 @@ class DetailPage extends StatelessWidget {
                       right: 10,
                       child: IconButton(
                         onPressed: () {
-                          value.toggleFavorite(shoeId);
+                          context.read<WishlistController>().toggleFavorite(shoeId);
                         },
                         icon: Icon(
                           shoe.isFavorite
