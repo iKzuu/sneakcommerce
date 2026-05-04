@@ -1,37 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:sneakcommerce/data/shoe_data.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sneakcommerce/controller/shoe_controller.dart';
 import 'package:sneakcommerce/models/shoe.dart';
 
 class WishlistController extends ChangeNotifier {
-  List<Shoe> get shoeShopWishList => shoeShop;
+  final ShoeController shoeController;
+  final Box<int> box = Hive.box<int>('wishlistBox');
 
-  // list of items user wishlist
-  List<Shoe> userWishlist = [];
+  WishlistController(this.shoeController);
 
-  // get wishlist
-  List<Shoe> get userWishlistItem => userWishlist;
+  List<int> get wishlistIds => box.values.toList();
 
-  // remove items from wishlist
-  void removeItemFromWishlist(Shoe shoe) {
-    userWishlist.remove(shoe);
-    notifyListeners();
+  bool isFavorite(int shoeId) {
+    return box.values.contains(shoeId);
+  }
+
+  List<Shoe> getWihlistShoes() {
+    return shoeController.shoeShopList.where((s) => isFavorite(s.id)).toList();
   }
 
   // toggle wishlist icon when adding or removing item from wishlist
   void toggleFavorite(int shoeId) {
-    final index = shoeShop.indexWhere((shoe) => shoe.id == shoeId);
-    if (index != -1) {
-      final shoe = shoeShop[index];
+    if (isFavorite(shoeId)) {
+      final key = box.keys.firstWhere((k) => box.get(k) == shoeId);
+      box.delete(key);
+    } else {
+      box.add(shoeId);
+    }
 
-      shoe.isFavorite = !shoe.isFavorite;
+    final shoe = shoeController.shoeShopList.firstWhere((s) => s.id == shoeId);
 
-      if (shoe.isFavorite) {
-        userWishlist.add(shoe);
-      } else {
-        userWishlist.remove(shoe);
-      }
+    shoe.isFavorite = !shoe.isFavorite;
 
-      notifyListeners();
+    notifyListeners();
+    shoeController.notifyListeners();
+  }
+
+  void syncWishlistToShoe() {
+    final ids = wishlistIds;
+
+    for (var shoe in shoeController.shoeShopList) {
+      shoe.isFavorite = ids.contains(shoe.id);
     }
   }
 }
