@@ -12,6 +12,7 @@ class HiveInitializer {
     await Future.wait([
       Hive.openBox<Address>('addressBox'),
       Hive.openBox<CartItem>('cartBox'),
+      Hive.openBox<int>('wishlistBox'),
     ]);
   }
 }
