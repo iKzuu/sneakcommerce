@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/controller.dart';
+import 'package:sneakcommerce/controller/shoe_search_controller.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 
 class Searchbar extends StatefulWidget {
@@ -36,7 +36,7 @@ class _SearchbarState extends State<Searchbar> {
             borderSide: BorderSide.none,
           ),
         ),
-        onChanged: (value) => Provider.of<Controller>(
+        onChanged: (value) => Provider.of<ShoeSearchController>(
           context,
           listen: false,
         ).setSearchQuery(value),
