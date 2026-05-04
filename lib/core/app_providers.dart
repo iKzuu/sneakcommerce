@@ -15,7 +15,16 @@ class AppProviders {
     ChangeNotifierProvider(create: (_) => PaymentMethodController()),
     ChangeNotifierProvider(create: (_) => AddressController()),
     ChangeNotifierProvider(create: (_) => CartController()),
-    ChangeNotifierProvider(create: (_) => WishlistController()),
+
+    ChangeNotifierProxyProvider<ShoeController, WishlistController>(
+      create: (context) => WishlistController(context.read<ShoeController>()),
+      update: (context, shoeController, previous) {
+        final controller = WishlistController(shoeController);
+        controller.syncWishlistToShoe();
+        return controller;
+      },
+    ),
+
     ChangeNotifierProvider(create: (_) => ShoeSearchController()),
   ];
 }
