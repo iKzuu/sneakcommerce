@@ -8,15 +8,21 @@ import 'package:sneakcommerce/pages/wishlist_page.dart';
 import 'package:sneakcommerce/theme/app_colors.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final int initialIndex;
+  const HomePage({super.key, this.initialIndex = 0});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  bool isSearchClicked = false;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   void navigateBottomBar(int index) {
     setState(() {
@@ -64,14 +70,17 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
       ),
 
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
 
       bottomNavigationBar: Container(
         color: Colors.transparent,
         child: SafeArea(
           child: BottomNavbar(
             currentIndex: _selectedIndex,
-            onTap: (index) => navigateBottomBar(index),
+            onTap: navigateBottomBar,
           ),
         ),
       ),
