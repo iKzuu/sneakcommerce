@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:sneakcommerce/controller/address_controller.dart';
 import 'package:sneakcommerce/controller/cart_controller.dart';
+import 'package:sneakcommerce/controller/order_controller.dart';
 import 'package:sneakcommerce/controller/shoe_controller.dart';
 import 'package:sneakcommerce/controller/payment_method_controller.dart';
 import 'package:sneakcommerce/controller/shipping_controller.dart';
@@ -26,5 +27,6 @@ class AppProviders {
     ),
 
     ChangeNotifierProvider(create: (_) => ShoeSearchController()),
+    ChangeNotifierProvider(create: (_) => OrderController()),
   ];
 }
