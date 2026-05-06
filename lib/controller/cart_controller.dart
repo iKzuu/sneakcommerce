@@ -117,4 +117,14 @@ class CartController extends ChangeNotifier {
 
   List<CartItem> get selectedItems =>
       _box.values.where((item) => item.isSelected).toList();
+
+  void clearSelectedItems() {
+    final selected = selectedItems;
+
+    for (final item in selected) {
+      item.delete();
+    }
+
+    notifyListeners();
+  }
 }
