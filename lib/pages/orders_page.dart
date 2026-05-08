@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sneakcommerce/controller/order_controller.dart';
+import 'package:sneakcommerce/components/card_list/order_item_card_list.dart';
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<OrderController>(
-      builder: (context, controller, _) {
-        final orders = controller.orders;
-
-        return ListView.builder(
-          itemCount: orders.length,
-          itemBuilder: (_, index) {
-            final order = orders[index];
-
-            return Text(order.orderId);
-          },
-        );
-      },
+    return const SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(top: 16, right: 16, bottom: 88, left: 16),
+        child: OrderItemCardList(),
+      ),
     );
   }
 }
