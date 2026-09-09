@@ -3,7 +3,7 @@ import 'package:sneakcommerce/core/hive_initializer.dart';
 
 class AppInitializer {
   static Future<void> init() async {
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: "config.env");
 
     await HiveInitializer.init();
   }
